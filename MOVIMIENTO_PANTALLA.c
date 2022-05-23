@@ -46,22 +46,22 @@ switch(letra){
 	break;
 
 	case 'w':
-	n=1;
+	n=-1;
 	vertical( &xy, n);
 	break;
 
 	case 'W':
-	n=1;
+	n=-1;
 	vertical( &xy, n);
 	break;
 
 	case 's':
-	n=-1;
+	n=1;
 	vertical( &xy, n);
 	break;
 
 	case 'S':
-	n=-1;
+	n=1;
 	vertical( &xy, n);
 	break;
 
