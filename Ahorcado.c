@@ -12,10 +12,10 @@ int imprime_pantalla_ahorcado(int dificultad, int intentos);
 
 //PRINCIPAL
 int main(){
-    int dificultad=1, situacion;
-    situacion=dificultades(dificultad);
+    int dificultad=3, puntuacion;
+    puntuacion=dificultades(dificultad);
     system("PAUSE");
-return situacion;
+return puntuacion;
 }
 
 //FUNCION CATEGORIAS
@@ -66,8 +66,40 @@ char palabra2[longitud_palabra];
             for(i=0; i<longitud_palabra; i++){
                 printf(" %c ", palabra2[i]);
             }
+        huecos=0;
+        for(i=0; i<longitud_palabra;i++){
+            if(palabra2[i] == '_'){
+            huecos++;
+            }
+        }
+        if(huecos==0){
+            printf("\nENHORABUENA, HAS SUPERADO LA PRUEBA, PUEDES CONTINUAR\n");
+            getch();
+            return 1;
+        }
+        printf("Escribe una letra\n");
+        scanf(" %c", &letra_usuario);
 
-        switch(dificultad){
+        for(j=0; j<longitud_palabra; j++){
+            if(letra_usuario==palabra[aleatorio][j] || letra_usuario==palabra[aleatorio][j]+32){
+
+                if(letra_usuario>97 && letra_usuario<122){
+                    palabra2[j]=letra_usuario-32;
+
+                }
+                else{
+                    palabra2[j]=letra_usuario;
+                }
+
+                printf("%c ", palabra2[j]);
+                aciertos++;
+            }
+        }
+        if(aciertos==0){
+            intentos++;
+        }
+
+         switch(dificultad){
 
             case 1:
                     intentos_totales=10;
@@ -76,6 +108,7 @@ char palabra2[longitud_palabra];
                             getch();//FUNCION PARECIDA A SCANF QUE NOS PERMITE SALTARNOS EL PULSAR ENTER
                             system("cls");
                             dificultades(dificultad);
+                            intentos_totales--;
 
                         }
 
@@ -86,6 +119,7 @@ char palabra2[longitud_palabra];
                             getch();//FUNCION PARECIDA A SCANF QUE NOS PERMITE SALTARNOS EL PULSAR ENTER
                             system("cls");
                             dificultades(dificultad);
+                            intentos_totales--;
 
                         }
             case 3:
@@ -95,30 +129,10 @@ char palabra2[longitud_palabra];
                             getch(); //FUNCION PARECIDA A SCANF QUE NOS PERMITE SALTARNOS EL PULSAR ENTER
                             system("cls");
                             dificultades(dificultad);
+                            intentos_totales--;
+
 
                         }
-        }
-        huecos=0;
-        for(i=0; i<longitud_palabra;i++){
-            if(palabra2[i] == '_'){
-            huecos++;
-            }
-        }
-        if(huecos==0){
-            printf("ENHORABUENA, HAS SUPERADO LA PRUEBA, PUEDES CONTINUAR\n");
-            getch();
-            return 1;
-        }
-        printf("Escribe una letra\n");
-        scanf(" %c", &letra_usuario);
-        for(j=0; j<longitud_palabra; j++){
-            if(letra_usuario==palabra[aleatorio][j]){
-                palabra2[i]=letra_usuario;
-                aciertos++;
-            }
-        }
-        if(aciertos==0){
-            intentos++;
         }
         system("cls");
     }while(intentos!=intentos_totales);
@@ -132,40 +146,39 @@ int imprime_pantalla_ahorcado(int dificultad, int intentos){
     if(dificultad==1){
 
         if(intentos==0){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 9 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      \n|\n|\n|\n|\n|__\n");
         }
-
     	if(intentos==1){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 8 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (\n|\n|\n|\n|\n|__\n");
         }
         if(intentos==2){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 7 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|\n|\n|\n|\n|__\n", ojos, ojos);
         }
         if(intentos==3){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 6 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|        %c\n|\n|\n|\n|__\n", ojos, ojos, torso );
         }
         if(intentos==4){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 5 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c\n|\n|\n|\n|__\n", ojos, ojos, pierna_izq, torso);
         }
         if(intentos==5){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 4 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|\n|\n|\n|__\n", ojos, ojos, pierna_izq, torso,pierna_der);
         }
         if(intentos==6){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 3 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|        | \n|\n|\n|__\n", ojos, ojos, pierna_izq, torso,pierna_der);
         }
         if(intentos==7){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 2 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|        | \n|        %c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,cadera);
         }
         if(intentos==8){
-            printf("Te queda %d intento para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te queda 1 intento para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c \n|        | \n|       %c%c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,pierna_izq, cadera);
         }
         if(intentos==9){
@@ -177,31 +190,31 @@ int imprime_pantalla_ahorcado(int dificultad, int intentos){
 if(dificultad==2){
 
         if(intentos==0){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 7 para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      \n|\n|\n|\n|\n|__\n");
         }
         if(intentos==1){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 6 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|\n|\n|\n|\n|__\n", ojos, ojos);
         }
         if(intentos==2){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 5 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|        %c\n|\n|\n|\n|__\n", ojos, ojos, torso );
         }
         if(intentos==3){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 4 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c\n|\n|\n|\n|__\n", ojos, ojos, pierna_izq, torso);
         }
         if(intentos==4){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 3 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|\n|\n|\n|__\n", ojos, ojos, pierna_izq, torso,pierna_der);
         }
         if(intentos==5){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 2 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|        | \n|        %c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,cadera);
         }
         if(intentos==6){
-            printf("Te queda %d intento para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te queda 1 intento para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c \n|        | \n|       %c%c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,pierna_izq, cadera);
         }
         if(intentos==7){
@@ -213,23 +226,23 @@ if(dificultad==2){
     if(dificultad==3){
 
         if(intentos==0){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 5 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      \n|\n|\n|\n|\n|__\n");
         }
         if(intentos==1){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 4 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|\n|\n|\n|\n|__\n", ojos, ojos);
         }
         if(intentos==2){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 3 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c\n|\n|\n|\n|__\n", ojos, ojos, pierna_izq, torso);
         }
         if(intentos==3){
-            printf("Te quedan %d intentos para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te quedan 2 intentos para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c\n|        | \n|        %c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,cadera);
         }
         if(intentos==4){
-            printf("Te queda %d intento para adivinar la palabra\n\n", intentos);
+            printf("Llevas %d fallos, te queda 1 intento para adivinar la palabra\n\n", intentos);
             printf(" _______\n/        |\n|      (%c-%c)\n|       %c%c%c \n|        | \n|       %c%c\n|        \n|__\n", ojos, ojos, pierna_izq, torso,pierna_der,pierna_izq, cadera);
         }
         if(intentos==5){
