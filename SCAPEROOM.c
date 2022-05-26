@@ -35,7 +35,7 @@ int main()
      printf("Elige la dificultad a la que quieres jugar\n");
      printf("(1)FACIL\n");
      printf("(2)MEDIO\n");
-     printf("(3)FACIL\n");
+     printf("(3)DIFICIL\n");
 
      //AÑADIR FICHERO
 
@@ -281,23 +281,19 @@ if(caso==2){
 
 
     intentosult=0;
-    int victoria=Blackjack(1,&intentos,&intentosult);
+    int victoria=Blackjack(dificultad,&intentos,&intentosult);
 
     if(victoria==1){
 
         if(intentosult!=1){
-        printf("Has ganado en %d intentos!\n",intentosult);
-        }else{printf("Has ganado en un intento\n");}
+        printf("Has ganado en %d intentos!\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n",intentosult);
+        }else{printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n");}
 
     }
 
     if(victoria==0){
-        printf("Has perdido!\n");
+        printf("Has perdido!\nPulsa 'w', 'a', 's' o 'd' para salir al menu y para volver a jugar.\n");
     }
-    if(intentos!=1){
-        printf("En todas tus partidas has realizado %d intentos.\n",intentos);
-        }else{printf("En todas tus partidas has realizado tan solo un intento.\n");}
-
 
 }
 
