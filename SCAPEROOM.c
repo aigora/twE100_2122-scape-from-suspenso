@@ -274,6 +274,7 @@ if(caso==3){
 
 
 if(caso==2){
+    system("cls");
      int intentos=0;
     int intentosult;
 
@@ -283,6 +284,7 @@ if(caso==2){
     int victoria=Blackjack(1,&intentos,&intentosult);
 
     if(victoria==1){
+
         if(intentosult!=1){
         printf("Has ganado en %d intentos!\n",intentosult);
         }else{printf("Has ganado en un intento\n");}
@@ -333,7 +335,7 @@ int pantalla2[20][30]={
 punto_siguiente->x = punto_siguiente->x + n;
 
 
-    if(pantalla2[xy->y][punto_siguiente->x]==0 || pantalla2[xy->y][punto_siguiente->x]==8 || pantalla2[xy->y][punto_siguiente->x]==3 || pantalla2[xy->y][punto_siguiente->x]==7 || pantalla2[xy->y][punto_siguiente->x]==12 || pantalla2[xy->y][punto_siguiente->x]==13){
+    if(pantalla2[xy->y][punto_siguiente->x]==0 || pantalla2[xy->y][punto_siguiente->x]==8 || pantalla2[xy->y][punto_siguiente->x]==3 || pantalla2[xy->y][punto_siguiente->x]==7 || pantalla2[xy->y][punto_siguiente->x]==12 || pantalla2[xy->y][punto_siguiente->x]==13 || pantalla2[xy->y][punto_siguiente->x]==10){
         xy->x = punto_siguiente->x;
 
 }
@@ -372,7 +374,7 @@ int pantalla2[20][30]={
 
    punto_siguiente->y = punto_siguiente->y + n;
 
-    if(pantalla2[punto_siguiente->y][xy->x]==0 || pantalla2[punto_siguiente->y][xy->x]==8 || pantalla2[punto_siguiente->y][xy->x]==3 || pantalla2[punto_siguiente->y][xy->x]==7 || pantalla2[punto_siguiente->y][xy->x]==12 || pantalla2[punto_siguiente->y][xy->x]==13){
+    if(pantalla2[punto_siguiente->y][xy->x]==0 || pantalla2[punto_siguiente->y][xy->x]==8 || pantalla2[punto_siguiente->y][xy->x]==3 || pantalla2[punto_siguiente->y][xy->x]==7 || pantalla2[punto_siguiente->y][xy->x]==12 || pantalla2[punto_siguiente->y][xy->x]==13 || pantalla2[punto_siguiente->y][xy->x]==10){
         xy->y = punto_siguiente->y;
     }
     else{
