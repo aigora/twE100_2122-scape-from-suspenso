@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <conio.h>//libreria para no pulsar enter con los scanf en movimientos
 //acceso a componentes de una estructura
+#include "Blackjack.h"
+
 typedef struct {
 int x,y;
 }punto;
@@ -272,7 +274,28 @@ if(caso==3){
 
 
 if(caso==2){
-    //Blackjack(dificultad);
+     int intentos=0;
+    int intentosult;
+
+
+
+    intentosult=0;
+    int victoria=Blackjack(1,&intentos,&intentosult);
+
+    if(victoria==1){
+        if(intentosult!=1){
+        printf("Has ganado en %d intentos!\n",intentosult);
+        }else{printf("Has ganado en un intento\n");}
+
+    }
+
+    if(victoria==0){
+        printf("Has perdido!\n");
+    }
+    if(intentos!=1){
+        printf("En todas tus partidas has realizado %d intentos.\n",intentos);
+        }else{printf("En todas tus partidas has realizado tan solo un intento.\n");}
+
 
 }
 
