@@ -10,7 +10,13 @@ int algoritmo (char palabra[10][30], int dificultad);
 int imprime_pantalla_ahorcado(int dificultad, int intentos);
 
 //PRINCIPAL
+int Ahorcado(dificultad){
+int puntuacion;
+    puntuacion=dificultades(dificultad);
+    system("PAUSE");
+return puntuacion;
 
+}
 
 //FUNCION CATEGORIAS
 int dificultades(int dificultad){
