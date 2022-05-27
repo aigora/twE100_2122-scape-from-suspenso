@@ -163,7 +163,6 @@ switch(letra){
 
 }
 system("cls");
-//printf("El punto es (%d,%d)\n", xy.x, xy.y);
 
 juego=pantalla(xy,dificultad);
 
@@ -206,7 +205,7 @@ int pantalla[20][30]={
 
 	};
     printf("\n\n");
-    printf("(%d,%d)", xy.x, xy.y);
+    //printf("(%d,%d)", xy.x, xy.y); ESTO NOS AYUDA A LA HORA DE PROGRAMAR PARA SABER LAS COORDENADAS DE LA MATRIZ
 
 	for(fil=0; fil<20; fil++){
             printf("\t\t\t\t\t");
