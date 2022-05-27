@@ -71,8 +71,12 @@ if(dificultad==1){
 
 
         if(ganar!=1 && restantes>0){
+    do{
     printf("Te quedan %d intentos, pulsa 1 si quieres seguir jugando y 0 si abandonas el casino.\n",restantes);
+    fflush(stdin);
     scanf("%d",&respuesta);
+    }while(respuesta!=1 && respuesta!=0);
+    printf("Esta tecla no es correcta");
     as=0;
     if(respuesta==1){
         repetir=1;
@@ -89,7 +93,7 @@ do{
     repetir=0;
     printf("Comienza la partida:\n");
     printf("Te recordamos que debido al nivel seleccionado, empiezas con ");
-    if(dificultad==1){printf("cinco intentos");} if(dificultad==2){printf("tres intentos");} if(dificultad==3){printf("un intento");}printf(" para ganar.\n");
+    if(dificultad==1){printf("siete intentos");} if(dificultad==2){printf("cinco intentos");} if(dificultad==3){printf("tres intentos");}printf(" para ganar.\n");
     if(restantes>1){printf("Te quedan %d intentos.\n",restantes);}
     if(restantes==1){printf("Te queda un intento.\n");}
     printf("Empezamos:\n");
@@ -226,8 +230,11 @@ do{
             printf("%c",adjetivos[ran][i]);
             i++;}
         printf(" te pregunta si deseas otra carta.\n");
+    do{
     printf("1:si 0:no\n");
+    fflush(stdin);
     scanf("%d",&seguir);
+    }while(seguir!=1 && seguir!=0);
 
     }
 
