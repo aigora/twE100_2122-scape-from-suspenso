@@ -10,4 +10,4 @@ iglesiascaballeropablo
 ## Objetivos del trabajo
 
 -El principal objetivo de este trabajo es demostrar los conocimientos aprendidos a lo largo del cuatrimestre y mucho coderunner, en este trabajo se usaran ficheros, funciones, estructuras, cadenas de caracteres etc.
--Llevar acabo un proyecto grupal complejo en C
+Llevar acabo un proyecto grupal complejo en C
