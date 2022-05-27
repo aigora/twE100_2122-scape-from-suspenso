@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <conio.h>//libreria para no pulsar enter con los scanf en movimientos
-//acceso a componentes de una estructura
 #include "Blackjack.h"
 
 typedef struct {
@@ -13,16 +12,12 @@ char dificultad[10];
 int puntuacion;
 }jugador;
 
-
-
 int movimiento_pantalla(int dificultad);
 
-int pantalla(punto xy, int dificultad);
-// Función para controlar el desplazamiento horizontal, siendo xy el
-// punto, y n el número de unidades a desplazar
-void horizontal(punto *xy, punto *punto_siguiente, int n);
-// Función para controlar el desplazamiento vertical
-void vertical(punto *xy, punto *punto_siguiente, int n);
+int pantalla(punto xy, int dificultad);//Función para imprimir la matriz de la pantalla principal
+
+void horizontal(punto *xy, punto *punto_siguiente, int n);//Función para controlar el desplazamiento horizontal, siendo xy el punto, y n el número de unidades a desplazar
+void vertical(punto *xy, punto *punto_siguiente, int n);//Función para controlar el desplazamiento vertical, siendo xy el punto, y n el número de unidades a desplazar
 
 
 int main()
@@ -30,8 +25,8 @@ int main()
     int dificultad, puntuacion=0;
     jugador jugador_nuevo;
     printf("%c%cBIENVENIDO AL SCAPE ROOM SCAPE FROM SUSPENSO!!\n", 173,173);
-    printf("En este scape room deberas de poner a prueba tus habilidades para superar todas los retos y acertijos que te encontraras\n");
-    printf("Pero antes, deberas de elegir la dificultad a la que deseas jugar y registrarte como usuario\n");
+    printf("En este scape room deberas poner a prueba tus habilidades para superar todas los retos y acertijos que te encontraras\n");
+    printf("Pero antes, deberas elegir la dificultad a la que deseas jugar y registrarte como usuario\n");
     printf("Por favor, escribe a continuacion tu nombre\n");
 
     scanf("%19s", jugador_nuevo.nombre);
@@ -68,11 +63,12 @@ int main()
     break;
 
     case 2:
-        printf("Has elegido la dificultad medio. \n");
+        jugador_nuevo.dificultad[10] = "MEDIO";
+        printf("Has elegido la dificultad %s\n", jugador_nuevo.dificultad);
         printf("Comenzemos el juego.\n");
+        system("Pause");
         system("cls");
         system("color 0E");//CAMBIAR EL COLOR DEL TEXTO
-        jugador_nuevo.dificultad[10] = "Medio";
         jugador_nuevo.puntuacion = movimiento_pantalla(dificultad);
     break;
 
@@ -86,7 +82,7 @@ int main()
     break;
 
     default:
-        printf("Opcion desconocida .\n");
+        printf("Opcion desconocida\n");
     break;
 
     }
@@ -177,17 +173,18 @@ return 0;
 
 int pantalla(punto xy, int dificultad){
 int puntuacion1, puntuacion2, puntuacion3, puntuacion_total;
+int abierto_blackjack=0, abierto_wordle=0, abierto_ahorcado=0;
 puntuacion_total= (puntuacion1 + puntuacion2 + puntuacion3);
 int fil, col, caso=0;
 char pared=254, columna=219, columna_arriba=220, columna_abajo=223, pista=63;
 int pantalla[20][30]={
 	{05,13,13,13,13,13,13,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05},
 	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,10,00,00,00,00,00,00,00,00,00,04},
-	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,06,04,00,11,06,06,06,00,00,00,00,00,00,00,00,00,00,05,00,12,05,05,05,05,05,05,05,05,04},
-	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
+	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,04,06,04,00,00,00,00,00,00,04},
+	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,04,07,04,05,05,05,05,05,00,04},
+	{04,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,04},
+	{04,06,04,00,11,06,06,06,06,10,06,06,06,06,06,06,06,06,04,10,06,06,06,06,06,06,06,06,06,04},
+	{04,07,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
@@ -201,6 +198,7 @@ int pantalla[20][30]={
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,14,00,04,00,00,00,00,00,04},
 	{04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,04,00,00,00,00,00,04},
 	{06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,02,02,06}
+
 
 
 	};
@@ -223,7 +221,7 @@ int pantalla[20][30]={
                     caso=1;
 
             }
-            if (xy.x==19 && xy.y==2){
+            if (xy.x==19 && xy.y==5){
                     caso=2;
 
             }
@@ -260,6 +258,28 @@ int pantalla[20][30]={
 		    }
 		    if(pantalla[fil][col]==14){
                     printf("%c", 184);
+
+
+		    }
+		    if(pantalla[fil][col]==16){
+                    if(abierto_blackjack=0){
+                    printf(" ");
+                    }
+
+                    else{
+                    printf("-");
+                    }
+
+
+		    }
+		    if(pantalla[fil][col]==17){
+                    if(abierto_blackjack=0){
+                    printf("|");
+                    }
+
+                    else{
+                    printf("-");
+                    }
 
 
 		    }
@@ -323,8 +343,10 @@ if(caso==2){
         if(intentosult!=1){
         printf("Has ganado en %d intentos!\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n",intentosult);
 
-        }else{printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n");}
-
+        }else{
+            printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n");
+            }
+    abierto_blackjack=1;
     }
 
     if(victoria==0){
@@ -344,11 +366,11 @@ void horizontal(punto *xy, punto *punto_siguiente, int n){
 int pantalla2[20][30]={
 	{05,13,13,13,13,13,13,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05},
 	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,10,00,00,00,00,00,00,00,00,00,04},
-	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,06,04,00,11,06,06,06,00,00,00,00,00,00,00,00,00,00,05,00,12,05,05,05,05,05,05,05,05,04},
-	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
+	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,04,06,04,06,00,00,00,00,00,04},
+	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,04,07,04,06,06,06,06,06,00,04},
+	{04,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,04},
+	{04,06,04,00,11,06,06,06,00,00,00,06,06,06,06,06,06,06,04,10,06,06,06,06,06,06,06,06,06,04},
+	{04,07,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
@@ -362,6 +384,7 @@ int pantalla2[20][30]={
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,14,00,04,00,00,00,00,00,04},
 	{04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,04,00,00,00,00,00,04},
 	{06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,06,02,02,06}
+
 
 
 	};
@@ -384,11 +407,11 @@ void vertical(punto *xy, punto *punto_siguiente, int n){
 int pantalla2[20][30]={
 	{05,13,13,13,13,13,13,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05},
 	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,10,00,00,00,00,00,00,00,00,00,04},
+	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
 	{04,15,03,03,03,03,15,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
 	{04,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04},
-	{04,06,04,00,11,06,06,06,00,00,00,00,00,00,00,00,00,00,05,00,12,05,05,05,05,05,05,05,05,04},
-	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
+	{04,06,04,00,11,06,06,06,00,00,00,06,06,06,06,06,06,06,04,10,05,05,05,05,05,05,05,05,06,04},
+	{04,07,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,00,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
 	{04,00,04,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,04,00,00,00,00,00,00,00,04,00,00,04},
