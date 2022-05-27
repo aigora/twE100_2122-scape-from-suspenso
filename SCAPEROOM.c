@@ -177,7 +177,6 @@ return 0;
 
 int pantalla(punto xy, int dificultad){
 int puntuacion1, puntuacion2, puntuacion3, puntuacion_total;
-int abierto_blackjack=0, abierto_wordle=0, abierto_ahorcado=0;
 puntuacion_total= (puntuacion1 + puntuacion2 + puntuacion3);
 int fil, col, caso=0, pista;
 char pared=254, columna=219, columna_arriba=220, columna_abajo=223;
@@ -277,28 +276,6 @@ int pantalla[20][30]={
                     printf("A");
 
             }
-		    if(pantalla[fil][col]==16){
-                    if(abierto_blackjack=0){
-                    printf(" ");
-                    }
-
-                    else{
-                    printf("-");
-                    }
-
-
-		    }
-		    if(pantalla[fil][col]==17){
-                    if(abierto_blackjack=0){
-                    printf("|");
-                    }
-
-                    else{
-                    printf("-");
-                    }
-
-
-		    }
 		    if(pantalla[fil][col]==3){
                     printf("_");
 
@@ -394,10 +371,6 @@ if(pista==3){
 	}
 if(caso==3){
 
-    int dificultad=3, puntuacion;
-    puntuacion=dificultades(dificultad);
-    system("PAUSE");
-return puntuacion;
 
 	}
 
@@ -414,7 +387,6 @@ if(caso==2){
 
     intentosult=0;
     int victoria=Blackjack(dificultad,&intentos,&intentosult);
-    xy.x++;
 
 
     if(victoria==1){
@@ -425,7 +397,6 @@ if(caso==2){
         }else{
             printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n");
             }
-    abierto_blackjack=1;
     }
 
     if(victoria==0){
