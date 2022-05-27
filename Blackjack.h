@@ -5,7 +5,7 @@
 void resetcar(int cartas[53]);
 void dibujarcartas(int cartas[11],int dim);
 int puntuar(int recibidas[11],int dim, int as);
-int Blackjack(int dificultad,int *intentos,int *intentosult);
+//int Blackjack(int dificultad,int *intentos,int *intentosult);
 
 
 int Blackjack(int dificultad, int *intentos,int *intentosult){

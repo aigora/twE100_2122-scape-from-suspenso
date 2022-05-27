@@ -2,6 +2,9 @@
 #include <conio.h>//libreria para no pulsar enter con los scanf en movimientos
 #include "Blackjack.h"
 #include "Ahorcado.h"
+#include "Wordle.h"
+#include "adivinanza.h"
+
 
 typedef struct {
 int x,y;
@@ -9,7 +12,6 @@ int x,y;
 
 typedef struct {
 char nombre[20];
-char dificultad[10];
 int puntuacion;
 }jugador;
 
@@ -19,7 +21,7 @@ int pantalla(punto xy, int dificultad);//Función para imprimir la matriz de la p
 
 void horizontal(punto *xy, punto *punto_siguiente, int n);//Función para controlar el desplazamiento horizontal, siendo xy el punto, y n el número de unidades a desplazar
 void vertical(punto *xy, punto *punto_siguiente, int n);//Función para controlar el desplazamiento vertical, siendo xy el punto, y n el número de unidades a desplazar
-void adivinanza(int dificultad);
+int adivinanza(int dificultad);
 
 
 int main(){
@@ -42,15 +44,16 @@ int main(){
     fichero = fopen("Partidas guardadas.txt", "a");
 
    do {
+          do{
      printf("Elige la dificultad a la que quieres jugar\n");
      printf("(1)FACIL\n");
      printf("(2)MEDIO\n");
      printf("(3)DIFICIL\n");
 
+        scanf("%d",&dificultad);
+        system("cls");
+        }while(dificultad!=1 && dificultad!=2 && dificultad!=3);
 
-
-       scanf("%d",&dificultad);
-       system("cls");
 
     switch(dificultad)
     {
@@ -60,7 +63,6 @@ int main(){
         printf("Comenzemos el juego\n");
         system("Pause");
         system("cls");
-        jugador_nuevo.dificultad[10] = "Facil";
         jugador_nuevo.puntuacion = movimiento_pantalla(dificultad);
     break;
 
@@ -71,7 +73,6 @@ int main(){
         printf("Comenzemos el juego\n");
         system("Pause");
         system("cls");
-        jugador_nuevo.dificultad[10] = "Medio";
         jugador_nuevo.puntuacion = movimiento_pantalla(dificultad);
     break;
 
@@ -81,7 +82,6 @@ int main(){
         printf("Comenzemos el juego\n");
         system("Pause");
         system("cls");
-        jugador_nuevo.dificultad[10] = "Dificil";
         jugador_nuevo.puntuacion = movimiento_pantalla(dificultad);
     break;
 
@@ -96,7 +96,7 @@ int main(){
 
     printf("\nEnhorabuena %s, tu puntacion ha sido de %d", jugador_nuevo.nombre, jugador_nuevo.puntuacion );
 
-    fprintf(fichero, "%s\t%s\t%d\n", jugador_nuevo.nombre, jugador_nuevo.dificultad, jugador_nuevo.puntuacion);
+    fprintf(fichero, "%s\t%d\n", jugador_nuevo.nombre, jugador_nuevo.puntuacion);
 
 fclose(fichero);
     }
@@ -119,7 +119,7 @@ char letra;
 //printf("El programa funciona con la interacción del usuario a partir de las teclas w (arriba), a (izquierda), x (abajo), d (derecha), y sus correspondientes mayúsculas./n Por ejemplo, si el usuario aprieta la tecla w el punto se desplaza haciaarriba una unidad,/n y si aprieta W se desplaza cinco unidades hacia arriba.\n");
 pantalla(xy, dificultad);
 do{
-letra=getch();//scanf(" %c", &letra); libreria conio.h
+letra=getch();//scanf(" %c", &letra); (libreria conio.h) POR ESO USO ESA GALERIA
 switch(letra){
 	case 'a':
 	n=-1;
@@ -177,7 +177,7 @@ return 0;
 int pantalla(punto xy, int dificultad){
 int puntuacion1, puntuacion2, puntuacion3, puntuacion_total;
 puntuacion_total= (puntuacion1 + puntuacion2 + puntuacion3);
-int fil, col, caso=0, pista;
+int fil, col, caso=0, pista, caso_adivinanza=0;
 char pared=254, columna=219, columna_arriba=220, columna_abajo=223;
 int pantalla[20][30]={
 	{05,13,13,13,13,13,13,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05,05},
@@ -205,8 +205,8 @@ int pantalla[20][30]={
 
 	};
     printf("\n\n");
-    //printf("(%d,%d)", xy.x, xy.y); ESTO NOS AYUDA A LA HORA DE PROGRAMAR PARA SABER LAS COORDENADAS DE LA MATRIZ
-
+    //printf("(%d,%d)", xy.x, xy.y); //ESTO NOS AYUDA A LA HORA DE PROGRAMAR PARA SABER LAS COORDENADAS DE LA MATRIZ
+    printf("\n\t\t\t    ['w'-ARRIBA]['S'-ABAJO]['A'-IZQUIERDA]['D'-DERECHA]\n\n\n");
 	for(fil=0; fil<20; fil++){
             printf("\t\t\t\t\t");
 		for(col=0; col<30; col++){
@@ -232,10 +232,21 @@ int pantalla[20][30]={
 
             }
             if (xy.x==19 && xy.y==5){
+                    caso=1;
+
+            }
+            if (xy.x==9 && xy.y==5){
                     caso=2;
 
             }
+            if (xy.x==7 && xy.y==13){
+                    caso=3;
 
+            }
+             if (xy.x==3 && xy.y==5){
+                    caso_adivinanza=1;
+
+            }
 		    if(pantalla[fil][col]==7){
                     printf("?");
 
@@ -313,12 +324,12 @@ if(pista==1){
      	printf("\t\t\t  %cHas encontrado una pista!\n\t\t\tPor la ma%cana ando a cuatro patas...",173, 164);
         break;
 
-        case 2:
+        case 3:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado una pista!\n\t\tSoy una persona gordita...",173 );
         break;
 
-        case 3:
+        case 2:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado una pista!\n\t\tSi pronuncias mi nombre desaparezco...",173 );
         break;
@@ -334,12 +345,12 @@ if(pista==2){
      	printf("\t\t\t  %cHas encontrado otra pista!\n\t\t...al mediodia a dos...",173 );
         break;
 
-        case 2:
+        case 3:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado otra pista!\n\t\t...muy coloradita, que no toma cafe...",173);
         break;
 
-        case 3:
+        case 2:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado otra pista!\n\t\t...te acompa%co en tus horas de estudio...",173, 164);
         break;
@@ -357,26 +368,20 @@ if(pista==3){
      	printf("\t\t\t  %cHas encontrado la ultima pista!\n\t\t...y por la noche a tres",173 );
         break;
 
-        case 2:
+        case 3:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado la ultima pista!\n\t\t...pero que siempre toma te?",173 );
         break;
 
-        case 3:
+        case 2:
         printf("\t\t");
      	printf("\t\t\t  %cHas encontrado la ultima pista!\n\t\t...que soy?",173 );
         break;
         }
 	}
-if(caso==3){
+	//MINIJUEGOS
 
-
-	}
-
-
-
-
-if(caso==2){
+if(caso==1){
 
     system("cls");
     int intentos=0;
@@ -391,18 +396,41 @@ if(caso==2){
     if(victoria==1){
 
         if(intentosult!=1){
-        printf("Has ganado en %d intentos!\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n",intentosult);
+        printf("Has ganado en %d intentos!\nPulsa 'w' para salir a la sala, si quieres volver a jugar para mejorar tu puntuacion pulsa otra tecla\n",intentosult);
 
         }else{
-            printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir al menu.\n");
+            printf("Has ganado en un intento\nPulsa 'w', 'a', 's' o 'd' para salir a la sala\n");
             }
     }
 
     if(victoria==0){
         printf("Has perdido!\nPulsa 'w', 'a', 's' o 'd' para salir al menu y para volver a jugar.\n");
     }
+puntuacion2=victoria;
 
 }
+
+if(caso==2){
+system("cls");
+puntuacion1= wordle_main(dificultad);
+        printf("Has ganado!\nPulsa 's' para salir a la sala, si quieres volver a jugar para mejorar tu puntuacion pulsa otra tecla\n");
+system("pause");
+	}
+
+if(caso==3){
+system("cls");
+puntuacion3= Ahorcado(dificultad);
+printf("Has ganado!\nPulsa 'a' para salir a la sala, si quieres volver a jugar para mejorar tu puntuacion pulsa otra tecla\n");
+
+	}
+if(caso_adivinanza==1){
+system("cls");
+int adivina = adivinanza(dificultad);
+printf("Has ganado!\nPulsa 'w' para salir a la sala y bajar las escaleras que te lleven a la salida\n");
+
+	}
+
+
 
 
 	return puntuacion_total;
@@ -441,7 +469,7 @@ int pantalla2[20][30]={
 punto_siguiente->x = punto_siguiente->x + n;
 
 
-    if(pantalla2[xy->y][punto_siguiente->x]==0 || pantalla2[xy->y][punto_siguiente->x]==8 || pantalla2[xy->y][punto_siguiente->x]==3 || pantalla2[xy->y][punto_siguiente->x]==7 || pantalla2[xy->y][punto_siguiente->x]==13 || pantalla2[xy->y][punto_siguiente->x]==10){
+    if(pantalla2[xy->y][punto_siguiente->x]==0 || pantalla2[xy->y][punto_siguiente->x]==8 || pantalla2[xy->y][punto_siguiente->x]==3 || pantalla2[xy->y][punto_siguiente->x]==7 || pantalla2[xy->y][punto_siguiente->x]==13 || pantalla2[xy->y][punto_siguiente->x]==10|| pantalla2[xy->y][punto_siguiente->x]==20){
         xy->x = punto_siguiente->x;
 
 }
@@ -481,7 +509,7 @@ int pantalla2[20][30]={
 
    punto_siguiente->y = punto_siguiente->y + n;
 
-    if(pantalla2[punto_siguiente->y][xy->x]==0 || pantalla2[punto_siguiente->y][xy->x]==8 || pantalla2[punto_siguiente->y][xy->x]==3 || pantalla2[punto_siguiente->y][xy->x]==7 || pantalla2[punto_siguiente->y][xy->x]==13 || pantalla2[punto_siguiente->y][xy->x]==10){
+    if(pantalla2[punto_siguiente->y][xy->x]==0 || pantalla2[punto_siguiente->y][xy->x]==8 || pantalla2[punto_siguiente->y][xy->x]==3 || pantalla2[punto_siguiente->y][xy->x]==7 || pantalla2[punto_siguiente->y][xy->x]==13 || pantalla2[punto_siguiente->y][xy->x]==10 || pantalla2[punto_siguiente->y][xy->x]==20){
         xy->y = punto_siguiente->y;
     }
     else{
@@ -489,40 +517,5 @@ int pantalla2[20][30]={
 
     }
 
-}
-
-void adivinanza(int dificultad)
-{
-    char adivinanzadificil[]="tomate";
-    char adivinanzamedio[]="silencio";
-    char adivinanzafacil[]="humano";
-    char respuesta[11];
-switch(dificultad){
-
-case 1:
-do{
-        printf("Escribe tu respuesta de la adivinanza para poder salir, estaremos aqui hasta que lo adivines... \n");
-        scanf("%10s", respuesta);
-}while(strcmp(adivinanzadificil, respuesta)!=0);
-    printf("Correcto\n");
-
-break;
-
-case 2:
-    do{
-        printf("Escribe tu respuesta de la adivinanza para poder salir, estaremos aqui hasta que lo adivines... \n");
-        scanf("%10s", respuesta);
-    }while(strcmp(adivinanzamedio, respuesta)!=0);
-        printf("Correcto\n");
-break;
-
-case 3:
-    do{
-        printf("Escribe tu respuesta de la adivinanza para poder salir, estaremos aqui hasta que lo adivines... \n");        scanf("%10s", respuesta);
-        scanf("%10s", respuesta);
-    }while(strcmp(adivinanzafacil, respuesta)!=0);
-        printf("Correcto\n");
-break;
-}
 }
 

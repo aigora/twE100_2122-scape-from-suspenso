@@ -1,5 +1,8 @@
-Edu		0EDUARDO		0EDUARDO		0EDUARDO		0
-EDUARDO		0
-eduardo		0
-EDUARDO		0
-edu		0
+NOMBRE	PUNTUACION
+EDU	0
+EDU	0
+ed	0
+ed	0
+edu	0
+edu	0
+edu	0

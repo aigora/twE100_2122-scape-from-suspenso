@@ -10,7 +10,7 @@ int algoritmo (char palabra[10][30], int dificultad);
 int imprime_pantalla_ahorcado(int dificultad, int intentos);
 
 //PRINCIPAL
-int Ahorcado(dificultad){
+int Ahorcado(int dificultad){
 int puntuacion;
     puntuacion=dificultades(dificultad);
     system("PAUSE");
@@ -52,6 +52,7 @@ int huecos=0, intentos=0, intentos_totales=0;
 int puntos=0, aciertos=0, ganar=0;
 int aleatorio= rand()%10;//FUNCION QUE GENERA UN NUMERO ALEATORIO
 int longitud_palabra= strlen(palabra[aleatorio]);
+int puntuacion;
 char letra_usuario;
 char palabra2[longitud_palabra];
 
@@ -83,7 +84,7 @@ char palabra2[longitud_palabra];
         for(j=0; j<longitud_palabra; j++){
             if(letra_usuario==palabra[aleatorio][j] || letra_usuario==palabra[aleatorio][j]+32){
 
-                if(letra_usuario>97 && letra_usuario<122){
+                if(letra_usuario>96 && letra_usuario<123){
                     palabra2[j]=letra_usuario-32;
 
                 }
@@ -136,7 +137,9 @@ char palabra2[longitud_palabra];
         }
         system("cls");
     }while(intentos!=intentos_totales);
+    puntuacion=dificultad * intentos_totales * 100;
 printf("\n");
+return puntuacion;
 }
 
 int imprime_pantalla_ahorcado(int dificultad, int intentos){
