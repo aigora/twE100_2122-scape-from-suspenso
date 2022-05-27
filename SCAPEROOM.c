@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>//libreria para no pulsar enter con los scanf en movimientos
 #include "Blackjack.h"
+#include "Ahorcado.h"
 
 typedef struct {
 int x,y;
@@ -392,8 +393,12 @@ if(pista==3){
         }
 	}
 if(caso==3){
-        printf("\t\t");
-     	printf("La puerta esta cerrada, intenta resolver algun acertijo para abrirla para abrirla");
+
+    int dificultad=3, puntuacion;
+    puntuacion=dificultades(dificultad);
+    system("PAUSE");
+return puntuacion;
+
 	}
 
 
